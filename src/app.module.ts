@@ -17,13 +17,12 @@ import { AppService } from './app.service';
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.getOrThrow('PG_HOST'),
-        port: configService.getOrThrow('PG_PORT'),
-        database: configService.getOrThrow('PG_DATABASE'),
-        username: configService.getOrThrow('PG_USERNAME'),
-        password: configService.getOrThrow('PG_PASSWORD'),
+        url: configService.getOrThrow('DB_URL'),
         autoLoadEntities: true,
         synchronize: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
       inject: [ConfigService],
     }),

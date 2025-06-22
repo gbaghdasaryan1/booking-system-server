@@ -1,12 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
-import { UpdateBookingDto } from './dto/update-booking.dto';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Booking } from './entities/booking.entity';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
 @Controller('booking')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -30,16 +39,16 @@ export class BookingController {
   @ApiOperation({ summary: 'Find all bookings' })
   @ApiResponse({ type: [Booking] })
   @Get()
-  @Roles("ADMIN")
+  @Roles('ADMIN')
   findAll() {
     return this.bookingService.findAll();
   }
 
   @ApiOperation({ summary: 'Find my bookings' })
   @ApiResponse({ type: [Booking] })
-  @Get("my")
-  getMyBookings(@Request() req: any){
-    return this.bookingService.findByUser(req.user.userId)
+  @Get('my')
+  getMyBookings(@Request() req: any) {
+    return this.bookingService.findByUser(req.user.userId);
   }
 
   @ApiOperation({ summary: 'Delete booking' })
@@ -49,4 +58,3 @@ export class BookingController {
     return this.bookingService.remove(id);
   }
 }
-
