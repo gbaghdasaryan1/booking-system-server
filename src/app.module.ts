@@ -5,12 +5,14 @@ import { UserModule } from './user/user.module';
 import { BookingModule } from './booking/booking.module';
 import { AuthModule } from './auth/auth.module';
 import { RoomModule } from './room/room.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env`
+      envFilePath: `.env`,
     }),
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
@@ -28,7 +30,7 @@ import { RoomModule } from './room/room.module';
     UserModule,
     BookingModule,
     AuthModule,
-    RoomModule
+    RoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],
