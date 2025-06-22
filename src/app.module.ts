@@ -17,7 +17,7 @@ import { AppService } from './app.service';
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.getOrThrow('DB_URL'),
+        url: process.env.DATABASE_URL,
         autoLoadEntities: true,
         synchronize: true,
         ssl: {
