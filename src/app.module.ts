@@ -30,7 +30,7 @@ import { RoomModule } from './room/room.module';
     AuthModule,
     RoomModule
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
